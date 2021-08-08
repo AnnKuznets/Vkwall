@@ -21,21 +21,23 @@ data class Post (
 class WallService {
     private var posts = emptyArray<Post>()
 
+
     fun add(post: Post): Post {
         val newPost = post.copy(
-            id = 1
+            id = if (posts.isNotEmpty()) posts.last().id + 1 else 0
         )
         posts += newPost
         return posts.last()
     }
 
+
     fun update(post: Post): Boolean {
-        for (post in posts) {
-            if (post.id == 2) {
-                posts[2] = post.copy(id = 2)
+        for ((id) in posts.withIndex()) {
+            if (post.id == id) {
+                posts[id] = post.copy(ownerId = post.ownerId, date = post.date)
                 return true
             }
         }
-         return false
+        return false
     }
 }

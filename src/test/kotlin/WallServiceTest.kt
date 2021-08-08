@@ -8,7 +8,7 @@ class WallServiceTest {
         service.add(
             Post(
                 1, 1, 2, 3, 4, "Привет!", 1, 2,
-                true, "ропо", 12, true, true, false, false,
+                true, "post", 12, true, true, false, false,
                 false, true, 7
             )
         )
@@ -44,7 +44,7 @@ class WallServiceTest {
                 true, "post", 12, true, true, false, false,
                 false, true, 7))
 
-        val update = Post(89, 1, 2, 3, 4, "Как дела?", 2, 2,
+        val update = Post(12, 2, 2, 3, 9, "Как дела?", 2, 2,
             true, "post", 12, true, true, false, false,
             false, true, 9)
 
@@ -55,16 +55,15 @@ class WallServiceTest {
 
     @Test
     fun add() {
-        val id = 1
-        val post = Post(1, 1, 2, 3, 4, "рпропр", 1, 2,
-            true, "ропо", 12, true, true, false, false,
+        var posts = emptyArray<Post>()
+        val post = Post(9, 1, 2, 3, 4, "Привет!", 1, 2,
+            true, "post", 12, true, true, false, false,
             false, true, 7)
         val newPost = post.copy(
-            id = 1
+            id = if (posts.isNotEmpty()) posts.last().id + 1 else 0
         )
-        var posts = newPost
         val result = post.id
 
-        assertEquals(1, result)
+        assertEquals(9, result)
     }
 }

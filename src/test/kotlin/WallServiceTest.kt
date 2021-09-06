@@ -36,17 +36,25 @@ class WallServiceTest {
     fun updateNotExisting() {
         val service = WallService()
         service.add(
-            Post(1, 1, 2, 3, 4, "Привет!", 1, 2,
+            Post(
+                1, 1, 2, 3, 4, "Привет!", 1, 2,
                 true, "post", 12, true, true, false, false,
-                false, true, 7))
+                false, true, 7
+            )
+        )
         service.add(
-            Post(2, 2, 2, 3, 4, "Пока!", 1, 2,
+            Post(
+                2, 2, 2, 3, 4, "Пока!", 1, 2,
                 true, "post", 12, true, true, false, false,
-                false, true, 7))
+                false, true, 7
+            )
+        )
 
-        val update = Post(12, 2, 2, 3, 9, "Как дела?", 2, 2,
+        val update = Post(
+            12, 2, 2, 3, 9, "Как дела?", 2, 2,
             true, "post", 12, true, true, false, false,
-            false, true, 9)
+            false, true, 9
+        )
 
         val result = service.update(update)
 
@@ -56,14 +64,15 @@ class WallServiceTest {
     @Test
     fun add() {
         var posts = emptyArray<Post>()
-        val post = Post(9, 1, 2, 3, 4, "Привет!", 1, 2,
+        val newPost = Post(
+            1, 2, 2, 3, 4, "Пока!", 1, 2,
             true, "post", 12, true, true, false, false,
-            false, true, 7)
-        val newPost = post.copy(
-            id = if (posts.isNotEmpty()) posts.last().id + 1 else 0
+            false, true, 7
         )
-        val result = post.id
+        posts += newPost
 
-        assertEquals(9, result)
+        val result = posts.last()
+
+        assertEquals(newPost,result)
     }
 }

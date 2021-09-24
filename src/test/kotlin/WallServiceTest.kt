@@ -63,16 +63,19 @@ class WallServiceTest {
 
     @Test
     fun add() {
-        var posts = emptyArray<Post>()
-        val newPost = Post(
+        val post = Post(
             1, 2, 2, 3, 4, "Пока!", 1, 2,
             true, "post", 12, true, true, false, false,
             false, true, 7
         )
-        posts += newPost
+        val new = Post(
+            2, 2, 2, 3, 4, "Пока!", 1, 2,
+            true, "post", 12, true, true, false, false,
+            false, true, 7
+        )
 
-        val result = posts.last()
+        val result = post.copy(post.id +1)
 
-        assertEquals(newPost,result)
+        assertEquals(new,result)
     }
 }

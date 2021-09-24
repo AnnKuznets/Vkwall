@@ -32,9 +32,10 @@ class WallService {
 
 
     fun update(post: Post): Boolean {
-        for ((id) in posts.withIndex()) {
-            if (post.id == id) {
-                posts[id] = post.copy(ownerId = post.ownerId, date = post.date)
+        for ((index, prePost) in posts.withIndex()) {
+            if (prePost.id == post.id) {
+                val updatedPost = post.copy(ownerId = prePost.ownerId, date = prePost.date)
+                posts[index] = updatedPost
                 return true
             }
         }

@@ -17,7 +17,8 @@ data class Post (
     val markedAsAds: Boolean,
     val isFavorite: Boolean,
     val postponedId: Int,
-    val reposts: Post?
+    val reposts: Post?,
+    val attachments: String
 )
 class WallService {
     private var posts = emptyArray<Post>()
@@ -42,8 +43,33 @@ class WallService {
         }
         return false
     }
-    fun repost(post: Post): Post{
+
+    fun repost(post: Post): Post {
         val reposts = post.reposts ?: post
         TODO()
     }
+
+    interface Attachment {
+        val type: String
+        val attachment: Any
+
+
+        var attachments: Array<Attachment>
+    }
+
+    open class AudioAttachment(override val type: String, override var attachments: Array<Attachment>,
+                               override val attachment: Any
+    ) : Attachment {
+
+        fun main(){
+            if (attachment !is AudioAttachment){
+                TODO()
+            }
+            val type = (attachment as AudioAttachment)
+        }
+
+    }
+    class Audio(val id: Int, val albumId : Int, type: String, attachments: Array<Attachment>, attachment: Any) : AudioAttachment(type,
+        attachments, attachment
+    )
 }

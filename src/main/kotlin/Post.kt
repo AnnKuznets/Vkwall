@@ -16,7 +16,8 @@ data class Post (
     val isPinned: Boolean,
     val markedAsAds: Boolean,
     val isFavorite: Boolean,
-    val postponedId: Int
+    val postponedId: Int,
+    val reposts: Post?
 )
 class WallService {
     private var posts = emptyArray<Post>()
@@ -40,5 +41,9 @@ class WallService {
             }
         }
         return false
+    }
+    fun repost(post: Post): Post{
+        val reposts = post.reposts ?: post
+        TODO()
     }
 }

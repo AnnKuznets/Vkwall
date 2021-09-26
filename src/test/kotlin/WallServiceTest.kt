@@ -9,7 +9,7 @@ class WallServiceTest {
             Post(
                 1, 1, 2, 3, 4, "Привет!", 1, 2,
                 true, "post", 12, true, true, false, false,
-                false, true, 7
+                false, true, 7, null
             )
         )
 
@@ -17,14 +17,14 @@ class WallServiceTest {
             Post(
                 2, 2, 2, 3, 4, "Пока!", 1, 2,
                 true, "post", 12, true, true, false, false,
-                false, true, 7
+                false, true, 7, null
             )
         )
 
         val update = Post(
             1, 1, 2, 3, 4, "Как дела?", 2, 2,
             true, "post", 12, true, true, false, false,
-            false, true, 9
+            false, true, 9, null
         )
 
         val result = service.update(update)
@@ -39,21 +39,21 @@ class WallServiceTest {
             Post(
                 1, 1, 2, 3, 4, "Привет!", 1, 2,
                 true, "post", 12, true, true, false, false,
-                false, true, 7
+                false, true, 7, null
             )
         )
         service.add(
             Post(
                 2, 2, 2, 3, 4, "Пока!", 1, 2,
                 true, "post", 12, true, true, false, false,
-                false, true, 7
+                false, true, 7, null
             )
         )
 
         val update = Post(
             12, 2, 2, 3, 9, "Как дела?", 2, 2,
             true, "post", 12, true, true, false, false,
-            false, true, 9
+            false, true, 9, null
         )
 
         val result = service.update(update)
@@ -66,12 +66,12 @@ class WallServiceTest {
         val post = Post(
             1, 2, 2, 3, 4, "Пока!", 1, 2,
             true, "post", 12, true, true, false, false,
-            false, true, 7
+            false, true, 7, null
         )
         val new = Post(
             2, 2, 2, 3, 4, "Пока!", 1, 2,
             true, "post", 12, true, true, false, false,
-            false, true, 7
+            false, true, 7, null
         )
 
         val result = post.copy(post.id +1)

@@ -1,3 +1,5 @@
+import kotlin.reflect.typeOf
+
 data class Post (
     val id: Int,
     val ownerId: Int,
@@ -18,7 +20,7 @@ data class Post (
     val isFavorite: Boolean,
     val postponedId: Int,
     val reposts: Post?,
-    val attachments: String
+    var attachments: Array<WallService.Attachment>
 )
 class WallService {
     private var posts = emptyArray<Post>()
@@ -51,25 +53,22 @@ class WallService {
 
     interface Attachment {
         val type: String
-        val attachment: Any
-
-
-        var attachments: Array<Attachment>
     }
 
-    open class AudioAttachment(override val type: String, override var attachments: Array<Attachment>,
-                               override val attachment: Any
-    ) : Attachment {
+    class Audio(id: Int = 1, albumId: Int = 1, ownerId: Int = 1, userId: Int = 1)
+    class Video(id: Int = 1, albumId: Int = 1, ownerId: Int = 1, userId: Int = 1)
 
-        fun main(){
-            if (attachment !is AudioAttachment){
-                TODO()
-            }
-            val type = (attachment as AudioAttachment)
-        }
 
+    class AudioAttachment(override val type: String = "audio", val audio: Audio = Audio()) : Attachment
+    class VideoAttachment(override val type: String = "video", val video: Video = Video()) : Attachment
+
+    var attachments: Array<Attachment> = arrayOf(AudioAttachment(), VideoAttachment())
+
+    fun main(attachment: Attachment) : Attachment {
+        if (attachment is AudioAttachment)
+            print(Audio())
+        if (attachment is VideoAttachment)
+            print(Video())
+        TODO()
     }
-    class Audio(val id: Int, val albumId : Int, type: String, attachments: Array<Attachment>, attachment: Any) : AudioAttachment(type,
-        attachments, attachment
-    )
 }

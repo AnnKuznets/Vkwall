@@ -1,7 +1,7 @@
 import java.lang.RuntimeException
 import kotlin.reflect.typeOf
 
-data class Post (
+data class Post(
     val id: Int,
     val ownerId: Int,
     val fromId: Int,
@@ -38,19 +38,15 @@ class WallService {
     private var comments = emptyArray<Comment>()
 
     fun createComment(comment: Comment) {
-        for ((index, post) in posts.withIndex()) {
+        for (post in posts) {
             if (post.id == comment.postId) {
-                val newComment = comment.copy(
-                    postId = if (comments.isNotEmpty()) comments.last().postId + 1 else 0
-                )
+                val newComment = comment.copy()
                 comments += newComment
             } else {
                 throw PostNotFoundException("post was not found")
             }
         }
     }
-
-
         fun add(post: Post): Post {
             val newPost = post.copy(
                 id = if (posts.isNotEmpty()) posts.last().id + 1 else 0

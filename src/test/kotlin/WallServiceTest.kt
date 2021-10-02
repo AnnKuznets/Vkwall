@@ -1,4 +1,3 @@
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -82,30 +81,33 @@ class WallServiceTest {
 
     @Test
     fun shouldNotThrow() {
+        val comment = Comment(
+        1, 2, 11233333, "Огонь!", 3, 1
+            )
+
         val post = Post(
             1, 2, 2, 3, 4, "Пока!", 1, 2,
             true, "post", 12, true, true, false, false,
             false, true, 7, null, arrayOf()
         )
-        val comment = Comment(
-            1, 2, 11233333, "Огонь!", 3, 1
-        )
+        val result = if (comment.postId == post.id) comment.copy(comment.postId) else 0
 
-        assertEquals(post.id, comment.postId)
+        assertEquals(comment, result)
     }
 
     @Test(expected = PostNotFoundException::class)
     fun shouldThrow() {
+        val comment = Comment(
+            2, 2, 11233333, "Огонь!", 3, 1
+        )
+
         val post = Post(
             1, 2, 2, 3, 4, "Пока!", 1, 2,
             true, "post", 12, true, true, false, false,
             false, true, 7, null, arrayOf()
         )
-        val comment = Comment(
-            2, 2, 11233333, "Огонь!", 3, 1
-        )
-
-        throw PostNotFoundException("post was not found")
+        val result = if (comment.postId == post.id) comment.copy(comment.postId) else
+            throw PostNotFoundException("post was not found")
 
     }
 }

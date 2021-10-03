@@ -81,32 +81,35 @@ class WallServiceTest {
 
     @Test
     fun shouldNotThrow() {
-        val comment = Comment(
-        1, 2, 11233333, "Огонь!", 3, 1
-            )
+        val service = WallService()
 
+        val comment = Comment(
+            1, 2, 11233333, "Огонь!", 3, 1
+        )
         val post = Post(
             1, 2, 2, 3, 4, "Пока!", 1, 2,
             true, "post", 12, true, true, false, false,
             false, true, 7, null, arrayOf()
         )
-        val result = if (comment.postId == post.id) comment.copy(comment.postId) else 0
 
-        assertEquals(comment, result)
+        val result = if (comment.postId == post.id) service.createComment(comment) else
+            throw PostNotFoundException("post was not found")
     }
 
     @Test(expected = PostNotFoundException::class)
     fun shouldThrow() {
-        val comment = Comment(
-            2, 2, 11233333, "Огонь!", 3, 1
-        )
+        val service = WallService()
 
+        val comment = Comment(
+            9, 2, 11233333, "Огонь!", 3, 1
+        )
         val post = Post(
             1, 2, 2, 3, 4, "Пока!", 1, 2,
             true, "post", 12, true, true, false, false,
             false, true, 7, null, arrayOf()
         )
-        val result = if (comment.postId == post.id) comment.copy(comment.postId) else
+
+        val result = if (comment.postId == post.id) service.createComment(comment) else
             throw PostNotFoundException("post was not found")
 
     }

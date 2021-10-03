@@ -38,10 +38,11 @@ class WallService {
     private var comments = emptyArray<Comment>()
 
     fun createComment(comment: Comment) {
-        for (post in posts) {
+        for ((index, post) in posts.withIndex()) {
             if (post.id == comment.postId) {
                 val newComment = comment.copy()
                 comments += newComment
+                comments[index] = newComment
             } else {
                 throw PostNotFoundException("post was not found")
             }
@@ -71,6 +72,7 @@ class WallService {
             val reposts = post.reposts ?: post
             TODO()
         }
+
 
     interface Attachment {
         val type: String

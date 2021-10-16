@@ -37,17 +37,17 @@ class WallService {
     private var posts = emptyArray<Post>()
     private var comments = emptyArray<Comment>()
 
-    fun createComment(comment: Comment) {
-        for ((index, post) in posts.withIndex()) {
+    fun createComment(comment: Comment): Comment {
+        for (post in posts) {
             if (post.id == comment.postId) {
                 val newComment = comment.copy()
                 comments += newComment
-                comments[index] = newComment
-            } else {
-                throw PostNotFoundException("post was not found")
+                return comments.last()
             }
         }
+            throw PostNotFoundException("post was not found")
     }
+
         fun add(post: Post): Post {
             val newPost = post.copy(
                 id = if (posts.isNotEmpty()) posts.last().id + 1 else 0

@@ -82,35 +82,51 @@ class WallServiceTest {
     @Test
     fun shouldNotThrow() {
         val service = WallService()
+        service.add(
+            Post(
+                1, 1, 2, 3, 4, "Привет!", 1, 2,
+                true, "post", 12, true, true, false, false,
+                false, true, 7, null, arrayOf()
+            )
+        )
+        service.add(
+            Post(
+                2, 2, 2, 3, 4, "Пока!", 1, 2,
+                true, "post", 12, true, true, false, false,
+                false, true, 7, null, arrayOf()
+            )
+        )
 
         val comment = Comment(
             1, 2, 11233333, "Огонь!", 3, 1
         )
-        val post = Post(
-            1, 2, 2, 3, 4, "Пока!", 1, 2,
-            true, "post", 12, true, true, false, false,
-            false, true, 7, null, arrayOf()
-        )
+        service.createComment(comment)
 
-        val result = if (comment.postId == post.id) service.createComment(comment) else
-            throw PostNotFoundException("post was not found")
     }
 
     @Test(expected = PostNotFoundException::class)
     fun shouldThrow() {
         val service = WallService()
 
+        service.add(
+            Post(
+                1, 1, 2, 3, 4, "Привет!", 1, 2,
+                true, "post", 12, true, true, false, false,
+                false, true, 7, null, arrayOf()
+            )
+        )
+        service.add(
+            Post(
+                2, 2, 2, 3, 4, "Пока!", 1, 2,
+                true, "post", 12, true, true, false, false,
+                false, true, 7, null, arrayOf()
+            )
+        )
+
         val comment = Comment(
             9, 2, 11233333, "Огонь!", 3, 1
         )
-        val post = Post(
-            1, 2, 2, 3, 4, "Пока!", 1, 2,
-            true, "post", 12, true, true, false, false,
-            false, true, 7, null, arrayOf()
-        )
-
-        val result = if (comment.postId == post.id) service.createComment(comment) else
-            throw PostNotFoundException("post was not found")
+        service.createComment(comment)
 
     }
 }
